@@ -40,13 +40,13 @@ module ExtraAttributable
 			after_save :e_attrs_setter
 
 			Partner.custom_attributes(self.superclass.name).each do |ea_attr|
-				ea = ExtraAttribute.where(kind: x.name, source_id: x.id, key: ea_attr.to_s).first
+				ea = ExtraAttribute.where(kind: x.class.name, source_id: x.id, key: ea_attr.to_s).first
 				x.send("#{ea_attr}=".to_sym, ea.value) if ea
 			end
 
 			def e_attrs_setter
 				Partner.custom_attributes(self.class.name).each do |ea_attr|
-					_ea = ExtraAttribute.find_or_create_by(kind: x.class.name, source_id: x.id, key: ea_attr.to_s)
+					_ea = ExtraAttribute.find_or_create_by(kind: self.class.name, source_id: self.id, key: ea_attr.to_s)
 					_ea.value = x.send(ea_attr)
 					_ea.save
 				end	
