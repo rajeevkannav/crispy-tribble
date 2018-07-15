@@ -1,24 +1,23 @@
-# README
+# crispy-tribble
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+###  Handling nasty custom attributes using ActiveSupport::Concern 
 
-Things you may want to cover:
+#### Prerequisites
 
-* Ruby version
+ * Rails 5.2.0
+ * ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
+ * Sqilte3 3.11.0 2016-02-15 17:29:24 3d862f207e3adc00f78066799ac5a8c282430a5f for development
+ * Ubuntu 16.04.4 LTS(Codename: xenial) (Used as development machine)
 
-* System dependencies
 
-* Configuration
+#### Considerations
 
-* Database creation
 
-* Database initialization
+#### API-Requests 
 
-* How to run the test suite
+```CURL
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+#### Tests 
 
-* Deployment instructions
-
-* ...
+To run tests `rspec .`  
