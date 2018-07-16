@@ -9,15 +9,43 @@
  * Sqilte3 3.11.0 2016-02-15 17:29:24 3d862f207e3adc00f78066799ac5a8c282430a5f for development
  * Ubuntu 16.04.4 LTS(Codename: xenial) (Used as development machine)
 
+#### Installation
 
-#### Considerations
+	git clone git@github.com:rajeevkannav/crispy-tribble.git
+	cd crispy-tribble  
+	gem install bundler
+	bundle install
+	rails db:create db:migrate db:seed
+	rails s
 
+#### Considerations(philosophy)
+	
+Assuming system consists a Partner at any given time which is Partner.current_partner.
+	Partner's definination are available into `models/partner.rb`.
 
-#### API-Requests 
+As and when ActiveSupport::Concern `ExtraAttributable` included into any model (User in our case) and Partner.current_partner is available. then every object of User model will be able to respond to custom_attributes corresponding to its defination.
 
-```CURL
-```
+custom_attributes will be saved into ExtraAttributes.(that's it.)
 
+For an example : 
+		
+		
+		Partner.current_partner = '2' 
+		# Custom attributes available for CurrentPatner 2 are [:nickname, :gender, :age].
+		user = User.new(name: "Rajeev Sharma", phone: '9811288952')
+		user.nickname = "Ashu"
+		user.age = 32
+		user.gender = "Male"
+		user.save
+		reload!
+		Partner.current_partner = '2'
+		user = User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first
+		user.age, user.gender, user.nickname
+		reload!
+		Partner.current_partner = '1'
+		User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first ## NOT AGE
+		user.gender, user.nickname 
+		# user.age NoMethodError (undefined method `age' 
 #### Tests 
 
 To run tests `rspec .`  
