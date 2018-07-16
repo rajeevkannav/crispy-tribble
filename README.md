@@ -34,19 +34,29 @@ As and when ActiveSupport::Concern `ExtraAttributable` included into any model (
 custom_attributes will be saved into ExtraAttributes.(that's it.)
 
 For an example : 
-		
+
+		## By default
+		user = User.new(name: "Rajeev Sharma", phone: '9811288952') 
+		#user.age, user.gender, user.nickname will raise  NoMethodError (undefined method  		
+		user.save # only name and phone will be saved for user.
+
+
+		## For Partner.current_partner = '2' required custom attributes are [:nickname, :gender, :age].
 		
 		Partner.current_partner = '2' 
-		# Custom attributes available for CurrentPatner 2 are [:nickname, :gender, :age].
 		user = User.new(name: "Rajeev Sharma", phone: '9811288952')
 		user.nickname = "Ashu"
 		user.age = 32
 		user.gender = "Male"
-		user.save
+		user.save # only defined custom attributes will be saved for user.
 		reload!
+		
 		Partner.current_partner = '2'
 		user = User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first
 		user.age, user.gender, user.nickname
+
+
+		## For Partner.current_partner = '1' required custom attributes are [:nickname, :gender].
 		reload!
 		Partner.current_partner = '1'
 		User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first ## NOT AGE
