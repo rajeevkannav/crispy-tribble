@@ -42,26 +42,23 @@ For an example :
 
 
 		## For Partner.current_partner = '2' required custom attributes are [:nickname, :gender, :age].
-		
 		Partner.current_partner = '2' 
 		user = User.new(name: "Rajeev Sharma", phone: '9811288952')
 		user.nickname = "Ashu"
 		user.age = 32
 		user.gender = "Male"
 		user.save # only defined custom attributes will be saved for user.
-		reload!
-		
-		Partner.current_partner = '2'
+
 		user = User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first
 		user.age, user.gender, user.nickname
 
 
 		## For Partner.current_partner = '1' required custom attributes are [:nickname, :gender].
-		reload!
 		Partner.current_partner = '1'
 		User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first ## NOT AGE
 		user.gender, user.nickname 
 		# user.age NoMethodError (undefined method `age' 
+
 #### Tests 
 
 To run tests `rspec .`  
