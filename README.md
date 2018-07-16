@@ -36,28 +36,50 @@ custom_attributes will be saved into ExtraAttributes.(that's it.)
 For an example : 
 
 		## By default
-		user = User.new(name: "Rajeev Sharma", phone: '9811288952') 
-		#user.age, user.gender, user.nickname will raise  NoMethodError (undefined method  		
+		user = User.new(name: "Rajeev Sharma", phone: '9811288952')
+		# => #<User id: nil, name: "Rajeev Sharma", phone: "9811288952", created_at: nil, updated_at: nil> 
+		user.age
+		# =>NoMethodError (undefined method `age
+		user.gender
+		# =>NoMethodError (undefined method `gender
+		user.nickname
+		# =>NoMethodError (undefined method `nickname
 		user.save # only name and phone will be saved for user.
+		# => true
 
 
 		## For Partner.current_partner = '2' required custom attributes are [:nickname, :gender, :age].
 		Partner.current_partner = '2' 
 		user = User.new(name: "Rajeev Sharma", phone: '9811288952')
+		# => #<User id: nil, name: "Rajeev Sharma", phone: "9811288952", created_at: nil, updated_at: nil> 
 		user.nickname = "Ashu"
+		# => "Ashu" 
 		user.age = 32
+		# => 32 
 		user.gender = "Male"
+		# => "Male" 
 		user.save # only defined custom attributes will be saved for user.
+		# => true
 
-		user = User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first
-		user.age, user.gender, user.nickname
+		user = User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 32, gender: "Male").first
+		user.nickname = "Ashu"
+		# => "Ashu" 
+		user.age = 32
+		# => 32 
+		user.gender = "Male"
+		# => "Male" 
 
 
 		## For Partner.current_partner = '1' required custom attributes are [:nickname, :gender].
 		Partner.current_partner = '1'
-		User.where(nickname: 'Ashu', name: "Rajeev Sharma", age: 34, gender: "Male").first ## NOT AGE
-		user.gender, user.nickname 
-		# user.age NoMethodError (undefined method `age' 
+		user = User.where(nickname: 'Ashu', name: "Rajeev Sharma", gender: "Male").first ## NOT AGE
+		user.nickname 
+		# => "Ashu" 
+		user.age
+		# NoMethodError (undefined method `age'
+		user.gender 
+		# => "Male" 
+		 
 
 #### Tests 
 
