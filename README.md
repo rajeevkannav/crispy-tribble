@@ -23,6 +23,12 @@
 Assuming system consists a Partner at any given time which is Partner.current_partner.
 	Partner's definination are available into `models/partner.rb`.
 
+By default an user object will have to columns/attributes only which are name and phone.
+and as per requirement Partner.current_partner = '2' needs [:nickname, :gender, :age] custom-attributes but
+Partner.current_partner = '1' needs only [:nickname, :gender]. further definations can be added to partner.rb
+
+Once in the system Partner.current_partner is available the object of model in which includes `ExtraAttributable` will have the ability to respond to required custom_attributes.
+
 As and when ActiveSupport::Concern `ExtraAttributable` included into any model (User in our case) and Partner.current_partner is available. then every object of User model will be able to respond to custom_attributes corresponding to its defination.
 
 custom_attributes will be saved into ExtraAttributes.(that's it.)
